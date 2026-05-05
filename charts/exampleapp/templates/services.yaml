@@ -1,0 +1,12 @@
+{{- include "mylibcharts.service" (list . "exampleapp.service") -}}
+{{- define "exampleapp.service" -}}
+spec:
+  type: LoadBalancer
+  selector:
+    app: exampleapp
+  ports:
+    - protocol: TCP
+      name: http
+      port: 80
+      targetPort: 4900
+{{- end -}}

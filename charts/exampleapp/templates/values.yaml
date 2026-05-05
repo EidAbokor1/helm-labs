@@ -1,0 +1,18 @@
+deployment:
+  name: exampleapp
+  replicas: 2
+  container:
+    name: exampleapp
+    image: "nginx:1.19.6-alpine"
+    imagePullPolicy: Always
+    containerPort: 5000
+    requestMemory: "64Mi"
+    requestCpu: "50m"
+    limitMemory: "256Mi"
+    limitCpu: "500m"
+
+secret:
+  type: Opaque
+
+namespace: default
+name: exampleapp

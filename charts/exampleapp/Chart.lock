@@ -1,0 +1,6 @@
+dependencies:
+- name: mylibcharts
+  repository: file://../mylibcharts
+  version: 0.1.0
+digest: sha256:acd9d844d96b921f65b64e701eb87e7f378eae49c2a57cb28ce561bdfdf612eb
+generated: "2026-05-05T19:27:37.279268805Z"

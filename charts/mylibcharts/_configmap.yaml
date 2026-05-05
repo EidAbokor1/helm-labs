@@ -1,0 +1,10 @@
+{{- define "mylibcharts.configmap.tpl" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.deployment.name }}-config
+data: {}
+{{- end }}
+{{- define "mylibcharts.configmap" -}}
+{{- include "mylibcharts.util.merge" (append . "mylibcharts.configmap.tpl") -}}
+{{- end -}}

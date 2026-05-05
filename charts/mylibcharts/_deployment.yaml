@@ -1,0 +1,35 @@
+{{- define "mylibcharts.deployment.tpl" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name | quote }}
+  labels:
+    {{- include "mylibcharts.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "mylibcharts.selector-labels" . | nindent 6 }}
+  replicas: {{ .Values.deployment.replicas }}
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        {{- include "mylibcharts.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Values.deployment.container.name | quote }}
+        image: {{ .Values.deployment.container.image | quote }}
+        imagePullPolicy: {{ .Values.deployment.container.imagePullPolicy | quote }}
+        ports:
+        - containerPort: {{ .Values.deployment.container.containerPort }}
+        resources:
+          requests:
+            memory: {{ .Values.deployment.container.requestMemory | quote }}
+            cpu: {{ .Values.deployment.container.requestCpu | quote }}
+          limits:
+            memory: {{ .Values.deployment.container.limitMemory | quote }}
+            cpu: {{ .Values.deployment.container.limitCpu | quote }}
+{{- end -}}
+{{- define "mylibcharts.deployment" -}}
+{{- include "mylibcharts.util.merge" (append . "mylibcharts.deployment.tpl") -}}
+{{- end -}}

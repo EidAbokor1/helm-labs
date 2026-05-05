@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod-pod
+  labels:
+    app: mypod
+    test: test
+spec:
+  containers:
+    - name: mypod
+      image: "nginx:1.14.2"
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 5000

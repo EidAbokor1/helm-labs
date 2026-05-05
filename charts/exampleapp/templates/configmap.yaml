@@ -1,0 +1,8 @@
+{{- include "mylibcharts.configmap" (list . "exampleapp.configmap") -}}
+{{- define "exampleapp.configmap" -}}
+data:
+  config.json: |
+    {
+      "environment" : "dev"
+    }
+{{- end -}}

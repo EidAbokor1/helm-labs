@@ -1,0 +1,19 @@
+{{- define "mylibcharts.service.tpl" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}
+  labels:
+    {{- include "mylibcharts.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "mylibcharts.selector-labels" . | nindent 4 }}
+  ports:
+  - name: http
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetPort }}
+  type: {{ .Values.service.type }}
+{{- end -}}
+{{- define "mylibcharts.service" -}}
+{{- include "mylibcharts.util.merge" (append . "mylibcharts.service.tpl") -}}
+{{- end -}}

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.deployment.name}}-deploy
+  labels:
+    app: {{.Values.deployment.name}}
+    test: test
+  annotations:
+    fluxcd.io/tag.{{.Values.deployment.name}}: semver:~1.0
+    fluxcd.io/automated: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.deployment.name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.deployment.name}}
+    spec:
+      containers:
+        - name: {{.Values.deployment.name}}
+          image: {{.Values.deployment.image}}:{{.Values.deployment.tag}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
